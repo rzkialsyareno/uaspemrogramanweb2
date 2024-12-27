@@ -73,7 +73,7 @@ class AdminController extends BaseController
         $produkModel = model('ProductModel');
         $kategoriModel = model('CategoryModel');
         $produk = $produkModel->select('produk.*, kategori.nama_kategori')
-            ->join('kategori', 'kategori.id = produk.id_kategiri', 'left')
+            ->join('kategori', 'kategori.id = produk.id_kategori', 'left')
             ->findAll();
         $kategori = $kategoriModel->findAll();
 
@@ -96,9 +96,9 @@ class AdminController extends BaseController
         }
 
         if ($produkModel->insert($data, false)) {
-            return redirect()->to('admin/product')->with('success', 'Data Berhasil Disimpan!');
+            return redirect()->to('admin/product')->with('success', 'Produk Berhasil Disimpan!');
         } else {
-            return redirect()->back()->with('error', 'Data Gagal Disimpan!');
+            return redirect()->back()->with('error', 'Produk Gagal Disimpan!');
         }
     }
 
@@ -123,7 +123,7 @@ class AdminController extends BaseController
             'nama_produk' => 'required|min_length[3]|max_length[100]',
             'harga' => 'required|numeric',
             'id_kategori' => 'required|numeric',
-            'foto' => 'is_image[foto]|max_sixe[foto,1024]',
+            'foto' => 'is_image[foto]|max_size[foto,1024]',
         ]);
 
         if (!$validation) {
@@ -139,8 +139,8 @@ class AdminController extends BaseController
         $file = $this->request->getFile('foto');
         if ($file && $file->isValid() && !$file->hasMoved()) {
             $fileName = $file->getRandomName();
-            $file->move('uploads', $fileName);
-            $data['foto'] = $fileName;
+            $file->move(WRITEPATH . 'uploads/images', $fileName);
+            $data['foto'] = 'images/' . $fileName;
 
             $existingProduct = $produkModel->findAll($id);
             if (!empty($existingProduct['foto']) && file_exists('uploads/' . $existingProduct['foto'])) {
@@ -195,7 +195,7 @@ class AdminController extends BaseController
         ];
 
         $contactModel->save($data);
-        return redirect()->to('/admin/contact')->with('error', 'Kontak berhasil ditambahkan.');
+        return redirect()->to('/admin/contact')->with('success', 'Kontak berhasil ditambahkan.');
     }
 
     public function edit_contact($id)
