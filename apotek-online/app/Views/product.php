@@ -29,7 +29,6 @@
                             <a href="<?= base_url('detail_product/' . $produk['id']) ?>" class="btn btn-light rounded-pill px-3 py-2 border">
                                 <i class="mdi mdi-eye"></i>
                             </a>
-
                             <a href="https://wa.me/081238191029?text=Halo%2C%20saya%20mau%20pesan%20<?= urlencode($produk['nama_produk']) ?>" class="btn btn-light rounded-pill flex-grow-1 d-flex align-items-center justify-content-center gap-2 border">
                                 <i class="mdi mdi-cart"></i>
                                 Pesan Sekarang

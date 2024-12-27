@@ -12,8 +12,7 @@
         <div class="col-md-6">
             <h4>Harga: Rp <?= number_format($produk['harga'], 0, ',', '.'); ?></h4>
             <h5>Kategori: <?= esc($produk['nama_kategori']); ?></h5>
-            <p><?= esc($produk['deskripsi'] ?? 'Tidak ada deskripsi untuk produk ini.'); ?></p>
-            <a href="<?= base_url('/product'); ?>" class="btn btn-secondary">Kembali</a>
+            <a href="<?= base_url(); ?>" class="btn btn-secondary">Kembali</a>
         </div>
     </div>
 </div>
